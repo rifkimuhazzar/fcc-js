@@ -61,7 +61,6 @@ const purchase = (cashAmount) => {
       cid[i][1] - cidDenomination[i][1] >= 0 &&
       totalCashInDrawer >= changeDue
     ) {
-      console.log("WhILE");
       cid[i][1] = fixedNumSub(cid[i][1], cidDenomination[i][1]);
       cidChange[i][1] = fixedNumAdd(cidChange[i][1], cidDenomination[i][1]);
 
