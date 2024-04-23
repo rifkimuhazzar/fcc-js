@@ -41,10 +41,7 @@ const purchase = (cashAmount) => {
     ["One Hundred", 100],
   ];
 
-  if (cashAmount < price) {
-    alert("Customer does not have enough money to purchase the item");
-    return;
-  } else if (cashAmount === price) {
+  if (cashAmount === price) {
     changeDueDiv.innerHTML =
       "<p class='status bold'>No change due - customer paid with exact cash</p>";
     return;
@@ -54,12 +51,9 @@ const purchase = (cashAmount) => {
     return;
   }
 
-  console.log(`${totalCashInDrawer}`);
-
   for (let i = cid.length - 1; i >= 0; i--) {
-    if (!(changeDue >= cidDenomination[i][1])) {
+    if (changeDue < cidDenomination[i][1] && cid[i][1] > 0) {
       totalCashInDrawer = fixedNumSub(totalCashInDrawer, cidDenomination[i][1]);
-      console.log(`${totalCashInDrawer}`);
     }
 
     while (
@@ -67,6 +61,7 @@ const purchase = (cashAmount) => {
       cid[i][1] - cidDenomination[i][1] >= 0 &&
       totalCashInDrawer >= changeDue
     ) {
+      console.log("WhILE");
       cid[i][1] = fixedNumSub(cid[i][1], cidDenomination[i][1]);
       cidChange[i][1] = fixedNumAdd(cidChange[i][1], cidDenomination[i][1]);
 
@@ -132,6 +127,9 @@ const showModal = () => {
       "Please enter a valid cash amount (only integer or float with 2 numbers after dot are allowed)"
     );
     return;
+  } else if (cashAmount < price) {
+    alert("Customer does not have enough money to purchase the item");
+    return;
   } else {
     clearStatus();
     purchase(cashAmount);
@@ -146,7 +144,7 @@ purchaseBtn.addEventListener("click", showModal);
 
 cashInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    run();
+    showModal();
   }
 });
 
