@@ -51,9 +51,11 @@ const purchase = (cashAmount) => {
     return;
   }
 
+  console.log(`OUTSIDE: ${totalCashInDrawer}`);
   for (let i = cid.length - 1; i >= 0; i--) {
     if (changeDue < cidDenomination[i][1] && cid[i][1] > 0) {
-      totalCashInDrawer = fixedNumSub(totalCashInDrawer, cidDenomination[i][1]);
+      totalCashInDrawer = fixedNumSub(totalCashInDrawer, cid[i][1]);
+      console.log(`IF: ${totalCashInDrawer}`);
     }
 
     while (
